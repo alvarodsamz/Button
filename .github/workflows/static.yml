@@ -1,43 +1,61 @@
-# Simple workflow for deploying static content to GitHub Pages
-name: Deploy static content to Pages
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+.collapsible {
+background-color: #515151;
+color: white;
+cursor: pointer;
+padding: 8px;
+border: none;
+text-align: center;
+width: 300px;
+outline: none;
+font-size: 15px;
 
-on:
-  # Runs on pushes targeting the default branch
-  push:
-    branches: ["main"]
+}
 
-  # Allows you to run this workflow manually from the Actions tab
-  workflow_dispatch:
+.active, .collapsible:hover {
+background-color: white;
+color:orange;
+}
 
-# Sets permissions of the GITHUB_TOKEN to allow deployment to GitHub Pages
-permissions:
-  contents: read
-  pages: write
-  id-token: write
+.content {
+padding: 0 18px;
+max-height: 0;
+font-size: 12px;
+overflow: hidden;
+font-family: Arial;
+transition: max-height 0.2s ease-out;
+background-color: #f1f1f1;
+}
+</style>
+</head>
+<body>
 
-# Allow only one concurrent deployment, skipping runs queued between the run in-progress and latest queued.
-# However, do NOT cancel in-progress runs as we want to allow these production deployments to complete.
-concurrency:
-  group: "pages"
-  cancel-in-progress: false
+<button class="collapsible">Click for Information</button>
+<div class="content">
+<p>You can add any information here to display to your end users. </p>
 
-jobs:
-  # Single deploy job since we're just deploying
-  deploy:
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout
-        uses: actions/checkout@v4
-      - name: Setup Pages
-        uses: actions/configure-pages@v5
-      - name: Upload artifact
-        uses: actions/upload-pages-artifact@v3
-        with:
-          # Upload entire repository
-          path: '.'
-      - name: Deploy to GitHub Pages
-        id: deployment
-        uses: actions/deploy-pages@v4
+<p>This screen can be closed by clicking on the button again.</p>
+</div>
+
+<script>
+var coll = document.getElementsByClassName("collapsible");
+var i;
+
+for (i = 0; i < coll.length; i++) {
+coll[i].addEventListener("click", function() {
+this.classList.toggle("active");
+var content = this.nextElementSibling;
+if (content.style.maxHeight){
+content.style.maxHeight = null;
+} else {
+content.style.maxHeight = content.scrollHeight + "px";
+}
+});
+}
+</script>
+</body>
+</html>
